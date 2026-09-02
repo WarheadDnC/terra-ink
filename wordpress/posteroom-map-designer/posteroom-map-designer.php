@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Posteroom Map Designer
  * Description: Map poster designer with A3/A4 WooCommerce variations, artwork uploads and order files.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Reckoning Web
  * License: AGPL-3.0-only
  * Requires at least: 6.5
@@ -12,7 +12,7 @@
  */
 namespace Posteroom\Maps;
 defined('ABSPATH') || exit;
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 const FILE = __FILE__;
 require_once __DIR__ . '/includes/Storage.php';
 require_once __DIR__ . '/includes/Plugin.php';

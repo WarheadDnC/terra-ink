@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import fs from "fs";
+import { legalAssets } from "./scripts/legalAssets.mjs";
 
 const packageJson = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "package.json"), "utf8"),
@@ -36,7 +37,7 @@ function getPackageName(id) {
 
 export default defineConfig(({ mode }) => ({
   base: mode === "wordpress" ? "./" : "/",
-  plugins: [react()],
+  plugins: [react(), legalAssets({ wordpress: mode === "wordpress" })],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },

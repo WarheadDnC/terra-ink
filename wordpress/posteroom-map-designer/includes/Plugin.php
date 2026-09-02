@@ -65,7 +65,7 @@ final class Plugin {
         }
         echo '<tr><th><label for="prm-storage">Private artwork directory</label></th><td><input class="large-text" id="prm-storage" name="posteroom_maps[storage]" value="' . esc_attr($s['storage']) . '"><p class="description">Absolute writable directory outside public_html / the web root. Original files are available only to shop managers. Keep this directory backed up; copy existing files before changing it.</p></td></tr></table>';
         submit_button();
-        echo '</form><p>Requires PNG support in GD or Imagick; allow at least 32 MB uploads and 256 MB PHP memory. Unordered artwork is removed after seven days; order artwork is retained. The existing AI generator snippets can remain enabled.</p><p><a href="https://github.com/WarheadDnC/terra-ink">Source code and license notices</a></p></div>';
+        echo '</form><p>Requires PNG support in GD or Imagick; allow at least 32 MB uploads and 256 MB PHP memory. Unordered artwork is removed after seven days; order artwork is retained. The existing AI generator snippets can remain enabled.</p><p><a href="' . esc_url(plugins_url('source/terra-ink-source.zip', FILE)) . '">Source code</a> | <a href="' . esc_url(plugins_url('build/legal/index.html', FILE)) . '">License notices</a></p></div>';
     }
 
     public function shortcode(): string {

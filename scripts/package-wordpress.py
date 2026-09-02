@@ -29,7 +29,7 @@ with ZipFile(args.output, 'w', compression=ZIP_DEFLATED) as archive:
         relative = path.relative_to(build)
         if path.is_file() and relative.name not in ('sw.js', 'manifest.webmanifest'):
             archive.write(path, prefix + 'build/' + str(relative))
-    for name in ('LICENSE', 'LICENSE-OLD', 'TRADEMARK.md'):
+    for name in ('LICENSE', 'LICENSE-OLD', 'TRADEMARK.md', 'COPYING'):
         archive.write(root / name, prefix + name)
     archive.writestr(prefix + 'source/terra-ink-source.zip', source)
     archive.writestr(prefix + 'source/COMMIT.txt', commit + '\n')

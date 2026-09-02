@@ -50,10 +50,12 @@ export function publicAsset(path: string): string {
 export const APP_TAGLINE = "Map Designer by Posteroom";
 export const POSTEROOM_URL = "https://posteroom.com";
 export const UPSTREAM_REPO_URL = "https://github.com/rw3-io/terraink";
+export const ADAPTATION_CREDIT = "Adapted and integrated by Reckoning Web for Posteroom";
+export const LICENSE_NOTICES_URL = publicAsset("legal/index.html");
 export const REPO_URL =
   (typeof window !== "undefined" ? window.posteroomRuntime?.sourceUrl : undefined) ||
   String(import.meta.env.VITE_REPO_URL ?? "").trim() ||
-  "https://github.com/WarheadDnC/terra-ink";
+  "https://github.com/WarheadDnC/terra-ink/tree/feat/terra-ink-branding";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
 export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";
 export const LEGAL_NOTICE_URL = import.meta.env.VITE_LEGAL_NOTICE_URL ?? "";

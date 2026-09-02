@@ -25,10 +25,10 @@ export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
           type="button"
           className="general-header-text-btn general-header-about-text-btn"
           onClick={onAboutOpen}
-          aria-label="About"
-          title="About"
+          aria-label="About and licenses"
+          title="About and licenses"
         >
-          <span className="general-header-btn-label">About</span>
+          <span className="general-header-btn-label">About &amp; licenses</span>
           <span className="general-header-btn-icon" aria-hidden="true">
             <InfoIcon />
           </span>

@@ -33,6 +33,11 @@
   color: #b8cedd;
 }
 
+.adaptation-credit {
+  display: block;
+  flex-basis: 100%;
+}
+
 .heart {
   margin: 0 2px;
   color: #ffb38f;

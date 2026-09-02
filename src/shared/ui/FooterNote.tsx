@@ -1,4 +1,4 @@
-import { REPO_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
+import { REPO_URL, UPSTREAM_REPO_URL, ADAPTATION_CREDIT, LICENSE_NOTICES_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 
 export default function FooterNote() {
@@ -45,8 +45,11 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          <span>Poster engine by Reckoning Web for Posteroom</span>
-          <span aria-hidden="true"> | </span>
+          <span className="adaptation-credit">{ADAPTATION_CREDIT}</span>
+          <span>Based on <a className="source-link" href={UPSTREAM_REPO_URL} target="_blank" rel="noreferrer">Terraink</a></span>
+          <span aria-hidden="true"> · </span>
+          <a className="source-link" href={LICENSE_NOTICES_URL} target="_blank" rel="noreferrer">AGPL-3.0</a>
+          <span aria-hidden="true"> · </span>
           <a className="source-link" href={REPO_URL} target="_blank" rel="noreferrer">
             Source code
           </a>

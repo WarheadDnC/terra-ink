@@ -14,7 +14,7 @@ The cart action prepares a full-resolution PNG and submits it through the includ
 
 The plugin uses the existing shop's A3/A4 variation mapping (4249/4250), with editable settings and ordering disabled until configured. Prices and availability come from WooCommerce. Map artwork uses separate metadata from the existing AI generator, protected print storage, cart previews and order downloads.
 
-The inactive Settings buttons and their unused styles are removed from desktop and mobile navigation. The install banner and automatic browser install prompt are disabled. The footer reads “Poster engine by Reckoning Web for Posteroom” and retains Source code access and map-provider attribution. Original software credits remain in About and the license files.
+The inactive Settings buttons and their unused styles are removed from desktop and mobile navigation. The install banner and automatic browser install prompt are disabled. The footer reads “Adapted and integrated by Reckoning Web for Posteroom” and explicitly credits Terraink, with AGPL-3.0 and Source code links. Original software credits remain in About and the license files.
 
 ## Develop and build
 
@@ -32,7 +32,7 @@ Development metadata uses `noindex, nofollow`, and the upstream sitemap and cano
 
 ## Changes in this fork
 
-Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.8`, adding a WordPress plugin and WooCommerce artwork flow after the Posteroom branding, navigation cleanup and A3/A4 restrictions. Git history records the modified files and dates.
+Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.9` (WordPress plugin `0.1.1`), clarifying adaptation credits and adding the complete AGPL text and working license links after the WooCommerce artwork integration. Git history records the modified files and dates.
 
 The desktop/mobile header and startup location screen use the owner-supplied `public/assets/posteroom-logo.png`, preserved unchanged with its white background. The startup screen displays POSTEROOM beneath the logo. The TI monogram and generated application icons from the initial adaptation remain in the other application assets. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
 
@@ -45,6 +45,8 @@ node scripts/generate-brand-icons.mjs
 ## License and attribution
 
 Original software copyright © 2026 Yousuf Amanuel. The original [LICENSE](LICENSE), [LICENSE-OLD](LICENSE-OLD) and [TRADEMARK.md](TRADEMARK.md) are retained unchanged. Posteroom modifications are provided under the GNU AGPL-3.0 terms of the fork. This program is provided without warranty; see the license notices.
+
+The complete, unmodified AGPL version 3 text is included in [COPYING](COPYING), obtained from the SPDX license-list-data `text/AGPL-3.0-or-later.txt` reference. Each production build emits a self-contained `legal/index.html` page and copies of those notices. License links use the asset base, independently of the source archive URL.
 
 The application provides a visible Source link and an About panel with original software credits, license notices and map-provider attribution. When deploying modifications, provide the corresponding source for that deployed version.
 

@@ -4,6 +4,8 @@ import {
   POSTEROOM_URL,
   REPO_URL,
   UPSTREAM_REPO_URL,
+  ADAPTATION_CREDIT,
+  LICENSE_NOTICES_URL,
 } from "@/core/config";
 import { GitHubIcon } from "./Icons";
 
@@ -21,6 +23,7 @@ export default function InfoPanel() {
             . Choose a place, style your map and make it your own.
           </p>
           <p>Version {APP_VERSION}</p>
+          <p>{ADAPTATION_CREDIT}. Modifications began on 2026-09-02.</p>
         </section>
         <section className="info-panel-section">
           <h3>Open source</h3>
@@ -34,15 +37,15 @@ export default function InfoPanel() {
           </p>
           <p>
             Original software copyright © 2026 Yousuf Amanuel. Licensed under
-            the GNU Affero General Public License. This program comes without
-            any warranty. Original copyright and license notices are retained
-            in the source repository.
+            the GNU Affero General Public License, version 3. This program comes
+            without any warranty. You may redistribute and modify it under the
+            license terms. Original copyright and license notices are retained.
           </p>
           <div className="footer-links">
             <a className="github-badge" href={REPO_URL} target="_blank" rel="noreferrer">
               <GitHubIcon className="badge-icon" /> Source code
             </a>
-            <a className="footer-link" href={`${REPO_URL}/blob/main/LICENSE`} target="_blank" rel="noreferrer">
+            <a className="footer-link" href={LICENSE_NOTICES_URL} target="_blank" rel="noreferrer">
               License notices
             </a>
           </div>
