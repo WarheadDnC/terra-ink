@@ -27,9 +27,9 @@ Development metadata uses `noindex, nofollow`, and the upstream sitemap and cano
 
 ## Changes in this fork
 
-Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.3`, adding the cart action after branding and A3/A4 paper-size restrictions. Git history records the modified files and dates.
+Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.4`, adding the supplied Posteroom header logo after the cart action and A3/A4 paper-size restrictions. Git history records the modified files and dates.
 
-The new TI monogram and generated application icons are Posteroom additions. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
+The desktop/mobile header uses the owner-supplied `public/assets/posteroom-logo.png`, preserved unchanged with its white background. The TI monogram and generated application icons from the initial adaptation remain in the other application assets. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
 
 Regenerate the PNG application icons from `public/assets/logo.svg` with:
 

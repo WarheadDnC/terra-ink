@@ -1,5 +1,4 @@
 import { InfoIcon } from "@/shared/ui/Icons";
-import { APP_NAME, APP_TAGLINE } from "@/core/config";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
 interface GeneralHeaderProps {
@@ -9,19 +8,15 @@ interface GeneralHeaderProps {
 export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
   return (
     <header className="general-header">
-      <div className="desktop-brand">
+      <h1 className="posteroom-brand" aria-label="Posteroom Map Designer">
         <img
-          className="desktop-brand-logo brand-logo"
-          src="/assets/logo.svg"
-          alt=""
+          className="posteroom-brand-logo"
+          src="/assets/posteroom-logo.png"
+          alt="Posteroom"
+          width={160}
+          height={160}
         />
-        <div className="desktop-brand-copy brand-copy">
-          <h1 className="desktop-brand-title">{APP_NAME}</h1>
-          <p className="desktop-brand-kicker app-kicker">
-            {APP_TAGLINE}
-          </p>
-        </div>
-      </div>
+      </h1>
 
       <div className="general-header-actions">
         <SocialLinkGroup variant="header" />
