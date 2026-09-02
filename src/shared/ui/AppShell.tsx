@@ -19,7 +19,7 @@ const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
 const AnnouncementModal = lazy(
   () => import("@/features/updates/ui/AnnouncementModal"),
 );
-const ExportFab = lazy(() => import("@/features/export/ui/ExportFab"));
+const AddToCartButton = lazy(() => import("@/features/cart/ui/AddToCartButton"));
 const DesktopLocationBar = lazy(() => import("@/shared/ui/DesktopLocationBar"));
 
 function SettingsDrawer({
@@ -85,7 +85,7 @@ export default function AppShell() {
     const preload = () => {
       void import("@/features/poster/ui/SettingsPanel");
       void import("@/shared/ui/DesktopLocationBar");
-      void import("@/features/export/ui/ExportFab");
+      void import("@/features/cart/ui/AddToCartButton");
       void import("@/features/updates/ui/AnnouncementModal");
     };
 
@@ -278,7 +278,7 @@ export default function AppShell() {
         onTabChange={handleMobileTabChange}
       />
       <Suspense fallback={null}>
-        <ExportFab isMobile={isMobileViewport} />
+        <AddToCartButton isMobile={isMobileViewport} />
       </Suspense>
 
       <FooterNote />

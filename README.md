@@ -6,11 +6,11 @@ This is an independent downstream fork. It is not affiliated with or endorsed by
 
 ## Current stage
 
-This first Posteroom adaptation changes application branding, icons, metadata and source-code links, and removes upstream donation prompts. Location search, map styling, markers and PNG/PDF/SVG exports are retained for development.
+This first Posteroom adaptation changes application branding, icons, metadata and source-code links, and removes upstream donation prompts. Location search, map styling and markers are retained. The customer-facing download action and format picker have been replaced with **Add to cart** on desktop and mobile.
 
 Poster sizes are restricted to A3 and A4, each in portrait and landscape orientation, with A4 portrait selected by default. The custom width/height editor and all other size presets have been removed.
 
-WooCommerce integration and the purchase flow are not implemented yet. The app is not ready to mount in WordPress: its global CSS, root-relative assets and root-scoped service worker must be adapted first. Do not copy the standalone service worker into the WordPress root.
+The cart action prepares a print PNG in memory and hands it to an optional host-page cart adapter. The WordPress/WooCommerce receiver is **not connected**: the standalone preview clearly reports that ordering is unavailable, and does not download a file or simulate a cart. See [Cart integration](docs/CART_INTEGRATION.md) for the adapter contract and remaining server work. The app is not ready to mount in WordPress: its global CSS, root-relative assets and root-scoped service worker must be adapted first. Do not copy the standalone service worker into the WordPress root.
 
 ## Develop and build
 
@@ -27,7 +27,7 @@ Development metadata uses `noindex, nofollow`, and the upstream sitemap and cano
 
 ## Changes in this fork
 
-Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.2`, adding the A3/A4 paper-size restriction after the initial branding changes. Git history records the modified files and dates.
+Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.3`, adding the cart action after branding and A3/A4 paper-size restrictions. Git history records the modified files and dates.
 
 The new TI monogram and generated application icons are Posteroom additions. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
 
