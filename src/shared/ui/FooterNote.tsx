@@ -1,4 +1,4 @@
-﻿import { APP_VERSION, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
+import { APP_NAME, APP_VERSION, REPO_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 
 export default function FooterNote() {
@@ -46,8 +46,10 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          Terraink™ v{appVersion} | © 2026 | Made with{" "}
-          <span className="heart">❤︎</span> in Hannover, Germany
+          {APP_NAME} v{appVersion} by Posteroom |{" "}
+          <a className="source-link" href={REPO_URL} target="_blank" rel="noreferrer">
+            Source code
+          </a>
         </p>
       </div>
 

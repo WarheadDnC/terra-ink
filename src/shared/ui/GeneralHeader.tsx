@@ -1,4 +1,5 @@
 import { InfoIcon } from "@/shared/ui/Icons";
+import { APP_NAME, APP_TAGLINE } from "@/core/config";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
 interface GeneralHeaderProps {
@@ -12,12 +13,12 @@ export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
         <img
           className="desktop-brand-logo brand-logo"
           src="/assets/logo.svg"
-          alt="Terraink logo"
+          alt=""
         />
         <div className="desktop-brand-copy brand-copy">
-          <h1 className="desktop-brand-title">Terraink</h1>
+          <h1 className="desktop-brand-title">{APP_NAME}</h1>
           <p className="desktop-brand-kicker app-kicker">
-            Free Map Poster & Wallpaper Creator
+            {APP_TAGLINE}
           </p>
         </div>
       </div>

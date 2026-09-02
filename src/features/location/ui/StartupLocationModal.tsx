@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/core/config";
 import { useEffect, useState } from "react";
 import {
   DEFAULT_CITY,
@@ -227,7 +228,7 @@ export default function StartupLocationModal({
     >
       <div className="startup-location-logo-wrap" aria-hidden="true">
         <img className="startup-location-logo" src="/assets/logo.svg" alt="" />
-        <p className="startup-location-app-name">Terraink</p>
+        <p className="startup-location-app-name">{APP_NAME}</p>
       </div>
 
       <div className="startup-location-card is-visible">

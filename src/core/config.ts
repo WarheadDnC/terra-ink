@@ -39,7 +39,13 @@ export const DEFAULT_LON = 9.732;
 export const DEFAULT_CITY = "Hanover";
 export const DEFAULT_COUNTRY = "Germany";
 
-export const REPO_URL = import.meta.env.VITE_REPO_URL ?? "";
+export const APP_NAME = "Terra Ink";
+export const APP_TAGLINE = "Map Designer by Posteroom";
+export const POSTEROOM_URL = "https://posteroom.com";
+export const UPSTREAM_REPO_URL = "https://github.com/rw3-io/terraink";
+export const REPO_URL =
+  String(import.meta.env.VITE_REPO_URL ?? "").trim() ||
+  "https://github.com/WarheadDnC/terra-ink";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
 export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";
 export const LEGAL_NOTICE_URL = import.meta.env.VITE_LEGAL_NOTICE_URL ?? "";
@@ -55,7 +61,7 @@ export const DEVELOPER_NAME = import.meta.env.VITE_DEVELOPER_NAME ?? "";
 export const DEVELOPER_PROFILE_URL =
   import.meta.env.VITE_DEVELOPER_PROFILE_URL ?? "";
 export const APP_CREDIT_URL =
-  import.meta.env.VITE_APP_CREDIT_URL ?? "terraink.app";
+  import.meta.env.VITE_APP_CREDIT_URL ?? "posteroom.com";
 export const APP_VERSION = String(
   import.meta.env.VITE_APP_VERSION ?? "0.0.0",
 ).trim();

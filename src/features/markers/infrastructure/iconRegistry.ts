@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/core/config";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { IconType } from "react-icons";
@@ -53,7 +54,7 @@ function createImageIcon(id: string, label: string, sourcePath: string) {
 }
 
 export const predefinedMarkerIcons: MarkerIconDefinition[] = [
-  createImageIcon("app-marker", "Terraink", "/assets/marker.svg"),
+  createImageIcon("app-marker", APP_NAME, "/assets/marker.svg"),
   createSvgIcon("pin", "Pin", FaLocationDot),
   createSvgIcon("heart", "Heart", FaHeart),
   createSvgIcon("home", "Home", FaHouse),
