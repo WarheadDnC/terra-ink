@@ -1,4 +1,4 @@
-const CACHE_NAME = "terra-ink-static-v6";
+const CACHE_NAME = "terra-ink-static-v7";
 const TILE_CACHE_NAME = "terra-ink-tiles-v1";
 const TILE_ORIGINS = ["https://tiles.openfreemap.org"];
 const APP_SHELL_ASSETS = [

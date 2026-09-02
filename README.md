@@ -12,7 +12,7 @@ Poster sizes are restricted to A3 and A4, each in portrait and landscape orienta
 
 The cart action prepares a print PNG in memory and hands it to an optional host-page cart adapter. The WordPress/WooCommerce receiver is **not connected**: the standalone preview clearly reports that ordering is unavailable, and does not download a file or simulate a cart. See [Cart integration](docs/CART_INTEGRATION.md) for the adapter contract and remaining server work. The app is not ready to mount in WordPress: its global CSS, root-relative assets and root-scoped service worker must be adapted first. Do not copy the standalone service worker into the WordPress root.
 
-The install banner and automatic browser install prompt are disabled. The footer reads “Poster engine by Reckoning Web for Posteroom” and retains Source code access and map-provider attribution. Original software credits remain in About and the license files.
+The inactive Settings buttons and their unused styles are removed from desktop and mobile navigation. The install banner and automatic browser install prompt are disabled. The footer reads “Poster engine by Reckoning Web for Posteroom” and retains Source code access and map-provider attribution. Original software credits remain in About and the license files.
 
 ## Develop and build
 
@@ -29,7 +29,7 @@ Development metadata uses `noindex, nofollow`, and the upstream sitemap and cano
 
 ## Changes in this fork
 
-Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.6`, extending Posteroom branding to the startup location screen after the header logo, footer credit, cart action and A3/A4 paper-size restrictions. Git history records the modified files and dates.
+Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.7`, removing the inactive Settings controls from desktop and mobile after the Posteroom branding, cart action and A3/A4 paper-size restrictions. Git history records the modified files and dates.
 
 The desktop/mobile header and startup location screen use the owner-supplied `public/assets/posteroom-logo.png`, preserved unchanged with its white background. The startup screen displays POSTEROOM beneath the logo. The TI monogram and generated application icons from the initial adaptation remain in the other application assets. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
 

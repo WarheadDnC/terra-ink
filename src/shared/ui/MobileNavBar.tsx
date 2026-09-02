@@ -5,7 +5,6 @@ import {
   LayersIcon,
   MarkersIcon,
   StyleIcon,
-  SettingsIcon,
 } from "./Icons";
 
 export type MobileTab =
@@ -70,15 +69,6 @@ export default function MobileNavBar({
           <div className="mobile-nav-fade" aria-hidden="true" />
         </div>
       </nav>
-
-      <button
-        type="button"
-        className="mobile-nav-settings"
-        aria-label="Settings"
-        disabled
-      >
-        <SettingsIcon className="mobile-nav-settings-icon" />
-      </button>
     </div>
   );
 }
