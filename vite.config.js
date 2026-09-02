@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import fs from "fs";
+import { legalAssets } from "./scripts/legalAssets.mjs";
 
 const packageJson = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "package.json"), "utf8"),
@@ -34,16 +35,19 @@ function getPackageName(id) {
   return parts[0];
 }
 
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }) => ({
+  base: mode === "wordpress" ? "./" : "/",
+  plugins: [react(), legalAssets({ wordpress: mode === "wordpress" })],
   define: {
     "import.meta.env.VITE_APP_VERSION": JSON.stringify(appVersion),
   },
   build: {
+    ...(mode === "wordpress" ? { outDir: "dist-wordpress", manifest: true } : {}),
     // maplibre-gl is distributed as a large prebundled module and remains a
     // single chunk even with manual chunking.
     chunkSizeWarningLimit: 1100,
     rollupOptions: {
+      ...(mode === "wordpress" ? { input: path.resolve(__dirname, "src/wordpress.tsx") } : {}),
       output: {
         manualChunks(id) {
           if (!id.includes("node_modules")) return;
@@ -81,4 +85,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-});
+}));

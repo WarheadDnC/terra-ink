@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  contain: layout style;
+  --posteroom-height: max(560px, calc(100dvh - 100px));
+  color: #e6edf4;
+  text-align: left;
+}
+.posteroom-surface {
+  position: relative;
+  height: var(--posteroom-height);
+  overflow: hidden;
+  transform: translateZ(0);
+  font-family: "Instrument Sans", sans-serif;
+}
+#root { height: 100%; min-height: 100%; }

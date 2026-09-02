@@ -1,6 +1,8 @@
+import { getPortalContainer } from "@/core/embedding";
 import { createPortal } from "react-dom";
 import InfoPanel from "./InfoPanel";
 import { CloseIcon } from "./Icons";
+import { APP_NAME } from "@/core/config";
 
 interface AboutModalProps {
   onClose: () => void;
@@ -17,7 +19,7 @@ export default function AboutModal({ onClose }: AboutModalProps) {
         className="about-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="About Terraink"
+        aria-label={`About ${APP_NAME}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -31,6 +33,6 @@ export default function AboutModal({ onClose }: AboutModalProps) {
         <InfoPanel />
       </div>
     </div>,
-    document.body,
+    getPortalContainer(),
   );
 }

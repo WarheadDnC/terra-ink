@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
@@ -108,7 +109,7 @@ function DeleteAllMarkersModal({
         </div>
       </div>
     </div>,
-    document.body,
+    getPortalContainer(),
   );
 }
 

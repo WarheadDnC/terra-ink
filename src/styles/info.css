@@ -241,3 +241,15 @@ a.social-badge:focus-visible {
   height: 16px;
   flex: 0 0 auto;
 }
+
+/* Keep source access visible in both the header and mobile export controls. */
+.desktop-header-social .general-header-social-btn.source-code-link,
+.mobile-export-social-links .general-header-social-btn.source-code-link {
+  display: inline-flex;
+  width: auto;
+  min-height: 34px;
+  padding: 0 8px;
+  gap: 6px;
+  font-size: 0.875rem;
+  text-decoration: none;
+}

@@ -1,7 +1,7 @@
 {
-  "name": "terraink",
+  "name": "terra-ink",
   "private": true,
-  "version": "0.4.2",
+  "version": "0.4.2-posteroom.9",
   "type": "module",
   "license": "AGPL-3.0-only",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "bunx --bun vite build",
     "preview": "bunx --bun vite preview --host",
     "typecheck": "tsc --noEmit",
-    "showcase:grid": "node scripts/combine-showcase-grid.mjs"
+    "showcase:grid": "node scripts/combine-showcase-grid.mjs",
+    "build:wordpress": "bunx --bun vite build --mode wordpress"
   },
   "dependencies": {
     "maplibre-gl": "^5.19.0",

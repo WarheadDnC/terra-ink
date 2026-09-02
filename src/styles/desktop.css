@@ -27,7 +27,6 @@
 .desktop-settings-slide,
 .desktop-export-fab,
 .desktop-install-badge,
-.desktop-settings-deco,
 .desktop-left-panel {
   display: none;
 }
@@ -281,16 +280,6 @@
   .desktop-nav-label {
     line-height: 1;
     font-size: 0.48rem;
-  }
-
-  .desktop-nav-tab--settings {
-    margin-top: auto;
-    margin-bottom: 6px;
-    cursor: default;
-  }
-
-  .desktop-nav-tab--settings:disabled {
-    opacity: 1;
   }
 
   /* ── Desktop left panel: floating fixed container (location bar + settings) ── */
@@ -850,6 +839,7 @@
 
   .desktop-footer {
     display: flex;
+    flex-wrap: wrap;
     position: fixed;
     left: 0;
     right: 0;
@@ -876,6 +866,13 @@
     margin: 0;
   }
 
+  .desktop-footer .made-note {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    white-space: normal;
+  }
+
   .desktop-footer-left,
   .desktop-footer-middle,
   .desktop-footer-right {
@@ -886,17 +883,17 @@
 
   .desktop-footer-left {
     justify-content: flex-start;
-    flex: 1 1 0;
+    flex: 0 1 auto;
   }
 
   .desktop-footer-middle {
     justify-content: center;
-    flex: 0 0 auto;
+    flex: 1 1 auto;
   }
 
   .desktop-footer-right {
     justify-content: flex-end;
-    flex: 1 1 0;
+    flex: 0 0 auto;
     gap: 8px;
     position: relative;
   }
@@ -1296,32 +1293,7 @@
     display: block;
   }
 
-  /* ── Decorative settings icon (bottom-left, no functionality) ── */
 
-  .desktop-settings-deco {
-    display: flex;
-    position: fixed;
-    bottom: 18px;
-    left: 18px;
-    z-index: 20;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid rgba(146, 176, 200, 0.14);
-    border-radius: 10px;
-    background: rgba(9, 16, 24, 0.72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .desktop-settings-deco-icon {
-    width: 16px;
-    height: 16px;
-    color: rgba(156, 195, 218, 0.3);
-  }
 }
 
 /* Layout label hidden on mobile */

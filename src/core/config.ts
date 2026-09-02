@@ -5,8 +5,8 @@ export const CM_PER_INCH = 2.54;
 
 export const MIN_POSTER_CM = 4;
 export const MAX_POSTER_CM = 45;
-export const DEFAULT_POSTER_WIDTH_CM = 20;
-export const DEFAULT_POSTER_HEIGHT_CM = 30;
+export const DEFAULT_POSTER_WIDTH_CM = 21;
+export const DEFAULT_POSTER_HEIGHT_CM = 29.7;
 export const LAYOUT_MATCH_TOLERANCE_CM = 0.01;
 
 export const MIN_DISTANCE_METERS = 100;
@@ -39,7 +39,23 @@ export const DEFAULT_LON = 9.732;
 export const DEFAULT_CITY = "Hanover";
 export const DEFAULT_COUNTRY = "Germany";
 
-export const REPO_URL = import.meta.env.VITE_REPO_URL ?? "";
+export const APP_NAME = "Terra Ink";
+declare global {
+  interface Window { posteroomRuntime?: { assetBase: string; sourceUrl?: string }; }
+}
+export function publicAsset(path: string): string {
+  const base = typeof window !== "undefined" ? window.posteroomRuntime?.assetBase : undefined;
+  return (base ?? "/").replace(/\/$/, "") + "/" + path.replace(/^\//, "");
+}
+export const APP_TAGLINE = "Map Designer by Posteroom";
+export const POSTEROOM_URL = "https://posteroom.com";
+export const UPSTREAM_REPO_URL = "https://github.com/rw3-io/terraink";
+export const ADAPTATION_CREDIT = "Adapted and integrated by Reckoning Web for Posteroom";
+export const LICENSE_NOTICES_URL = publicAsset("legal/index.html");
+export const REPO_URL =
+  (typeof window !== "undefined" ? window.posteroomRuntime?.sourceUrl : undefined) ||
+  String(import.meta.env.VITE_REPO_URL ?? "").trim() ||
+  "https://github.com/WarheadDnC/terra-ink/tree/feat/terra-ink-branding";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
 export const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? "";
 export const LEGAL_NOTICE_URL = import.meta.env.VITE_LEGAL_NOTICE_URL ?? "";
@@ -55,12 +71,12 @@ export const DEVELOPER_NAME = import.meta.env.VITE_DEVELOPER_NAME ?? "";
 export const DEVELOPER_PROFILE_URL =
   import.meta.env.VITE_DEVELOPER_PROFILE_URL ?? "";
 export const APP_CREDIT_URL =
-  import.meta.env.VITE_APP_CREDIT_URL ?? "terraink.app";
+  import.meta.env.VITE_APP_CREDIT_URL ?? "posteroom.com";
 export const APP_VERSION = String(
   import.meta.env.VITE_APP_VERSION ?? "0.0.0",
 ).trim();
 export const UPDATES_URL = String(
-  import.meta.env.VITE_UPDATES_URL ?? "/updates.json",
+  import.meta.env.VITE_UPDATES_URL ?? publicAsset("updates.json"),
 ).trim();
 
 export const INSTALL_DIAGNOSTICS_ENABLED = false;

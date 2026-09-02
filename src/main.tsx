@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { isNativePlatform, onPlatformAdapterChange } from "@/core/platform";
 import App from "./App";
 import "./styles/index.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 const syncDisplayMode = () => {
   const isStandalone =
@@ -17,6 +18,9 @@ const syncDisplayMode = () => {
     ? "standalone"
     : "browser";
 };
+
+// Keep installation available through the browser menu without a proactive prompt.
+window.addEventListener("beforeinstallprompt", (event) => event.preventDefault());
 
 syncDisplayMode();
 onPlatformAdapterChange(syncDisplayMode);

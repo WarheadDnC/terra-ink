@@ -697,3 +697,18 @@ button.install-prompt-dismiss:hover {
     transform: scale(1) rotate(0deg);
   }
 }
+
+/* Customer-supplied Posteroom header mark; preserve its original white base. */
+.posteroom-brand {
+  margin: 0;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.posteroom-brand-logo {
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: #fff;
+}

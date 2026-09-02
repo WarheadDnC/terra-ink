@@ -1,3 +1,4 @@
+import { publicAsset } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
@@ -8,19 +9,15 @@ interface GeneralHeaderProps {
 export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
   return (
     <header className="general-header">
-      <div className="desktop-brand">
+      <h1 className="posteroom-brand" aria-label="Posteroom Map Designer">
         <img
-          className="desktop-brand-logo brand-logo"
-          src="/assets/logo.svg"
-          alt="Terraink logo"
+          className="posteroom-brand-logo"
+          src={publicAsset("assets/posteroom-logo.png")}
+          alt="Posteroom"
+          width={160}
+          height={160}
         />
-        <div className="desktop-brand-copy brand-copy">
-          <h1 className="desktop-brand-title">Terraink</h1>
-          <p className="desktop-brand-kicker app-kicker">
-            Free Map Poster & Wallpaper Creator
-          </p>
-        </div>
-      </div>
+      </h1>
 
       <div className="general-header-actions">
         <SocialLinkGroup variant="header" />
@@ -28,10 +25,10 @@ export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
           type="button"
           className="general-header-text-btn general-header-about-text-btn"
           onClick={onAboutOpen}
-          aria-label="About"
-          title="About"
+          aria-label="About and licenses"
+          title="About and licenses"
         >
-          <span className="general-header-btn-label">About</span>
+          <span className="general-header-btn-label">About &amp; licenses</span>
           <span className="general-header-btn-icon" aria-hidden="true">
             <InfoIcon />
           </span>
