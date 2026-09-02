@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import maplibregl from "maplibre-gl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type {
@@ -101,7 +102,7 @@ export async function createLayeredSvgBlobFromMap({
   } = resolveExportRenderParams(map, exportWidth, exportHeight);
 
   const offscreenContainer = createOffscreenContainer(renderWidth, renderHeight);
-  document.body.appendChild(offscreenContainer);
+  getPortalContainer().appendChild(offscreenContainer);
 
   const exportMap = new maplibregl.Map({
     container: offscreenContainer,

@@ -40,10 +40,18 @@ export const DEFAULT_CITY = "Hanover";
 export const DEFAULT_COUNTRY = "Germany";
 
 export const APP_NAME = "Terra Ink";
+declare global {
+  interface Window { posteroomRuntime?: { assetBase: string; sourceUrl?: string }; }
+}
+export function publicAsset(path: string): string {
+  const base = typeof window !== "undefined" ? window.posteroomRuntime?.assetBase : undefined;
+  return (base ?? "/").replace(/\/$/, "") + "/" + path.replace(/^\//, "");
+}
 export const APP_TAGLINE = "Map Designer by Posteroom";
 export const POSTEROOM_URL = "https://posteroom.com";
 export const UPSTREAM_REPO_URL = "https://github.com/rw3-io/terraink";
 export const REPO_URL =
+  (typeof window !== "undefined" ? window.posteroomRuntime?.sourceUrl : undefined) ||
   String(import.meta.env.VITE_REPO_URL ?? "").trim() ||
   "https://github.com/WarheadDnC/terra-ink";
 export const REPO_API_URL = import.meta.env.VITE_REPO_API_URL ?? "";
@@ -66,7 +74,7 @@ export const APP_VERSION = String(
   import.meta.env.VITE_APP_VERSION ?? "0.0.0",
 ).trim();
 export const UPDATES_URL = String(
-  import.meta.env.VITE_UPDATES_URL ?? "/updates.json",
+  import.meta.env.VITE_UPDATES_URL ?? publicAsset("updates.json"),
 ).trim();
 
 export const INSTALL_DIAGNOSTICS_ENABLED = false;

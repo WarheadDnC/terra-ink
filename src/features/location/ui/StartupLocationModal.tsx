@@ -1,3 +1,4 @@
+import { publicAsset } from "@/core/config";
 import { useEffect, useState } from "react";
 import {
   DEFAULT_CITY,
@@ -226,7 +227,7 @@ export default function StartupLocationModal({
       aria-labelledby="startup-location-title"
     >
       <div className="startup-location-logo-wrap">
-        <img className="startup-location-logo" src="/assets/posteroom-logo.png" alt="" width={160} height={160} />
+        <img className="startup-location-logo" src={publicAsset("assets/posteroom-logo.png")} alt="" width={160} height={160} />
         <p className="startup-location-app-name">POSTEROOM</p>
       </div>
 

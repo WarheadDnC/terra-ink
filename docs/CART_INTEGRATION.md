@@ -1,49 +1,41 @@
 # Posteroom cart integration
 
-## Current state
+## Deployment
 
-The Download action and PNG/PDF/SVG picker are replaced by Add to cart on mobile and desktop. Until Posteroom supplies a cart adapter, pressing the button reports that ordering is unavailable. It does not generate files, send requests, invent prices or claim an item was added.
+Install the complete `posteroom-map-designer.zip` and use `[posteroom_map_designer]` on one full-width Elementor page. See [installation instructions](../wordpress/posteroom-map-designer/README.md). The standalone Sites preview has no shop session or live cart connection.
 
-Once configured, the app prepares an A3/A4 PNG at 300 DPI with the current map, theme, text and markers, and retained map attribution. It passes the in-memory PNG and paper metadata to the adapter. The confirmation and View cart link appear only after the adapter returns a valid cart item key and same-origin cart URL.
+`src/wordpress.tsx` is a separate build entry. It mounts the designer in Shadow DOM, keeps portals and offscreen map rendering in that boundary, resolves plugin assets and skips standalone service-worker installation. The PHP shortcode enqueues the module only where used. Full-page caches may cache the shortcode markup: customer-specific tokens and price quotes are fetched from an uncached AJAX bootstrap using same-origin credentials.
 
-The PNG is rendered **in the browser**. Removing the download action does not make the print file inaccessible to browser users. Server-side rendering is separate work if the print master must never reach the customer browser.
+## Shop integration
 
-## Host-page adapter contract
+The new `posteroom_bootstrap` and `posteroom_add_to_cart` AJAX actions serve authenticated and guest customers. The existing AI generator's `add_poster_to_cart` action remains separate. The supplied shop mapping is A3 → 4249 and A4 → 4250; both orientations share each size variation. The plugin resolves the parent and exact attributes from WooCommerce, validates availability and never accepts a client price or product ID.
 
-The WordPress host page must supply `window.terraInkCart` before the customer submits a design. Its `addItem` method implements `IPosterCart` from `src/features/cart/domain/ports.ts`:
+The `IPosterCart` contract in `src/features/cart/domain/ports.ts` accepts a request ID, PNG Blob and validated paper/design metadata. An optional `getOffer(layout)` returns the current WooCommerce display price and availability. A receipt requires a real cart key and same-origin cart URL. Classic mini-cart fragments and the WooCommerce Blocks cart event refresh the page's cart indicators.
 
-```ts
-interface IPosterCart {
-  addItem(request: {
-    requestId: string;
-    poster: Blob; // image/png
-    design: {
-      schemaVersion: 1;
-      paperSize: "A3" | "A4";
-      orientation: "portrait" | "landscape";
-      widthCm: number;
-      heightCm: number;
-      dpi: 300;
-      title: string;
-      subtitle: string;
-      theme: string;
-      latitude: number;
-      longitude: number;
-    };
-  }): Promise<{ cartItemKey: string; cartUrl: string }>;
-}
+The receiver validates the session-bound token, custom same-origin request header, schema, size, orientation, coordinates, PNG type, exact 300 DPI dimensions and 32 MB limit. The client keeps the request and PNG for unconfirmed retries. A per-session file lock and fingerprint prevent repeated submissions from increasing quantity or changing the same request. Different designs have separate cart keys. Cart data is refreshed under the lock before insertion.
+
+## Storage and orders
+
+Print PNGs and 480px JPEG previews live in a configured writable directory outside the public web root. The browser generates the PNG; protected server storage does not hide the original from the browser during generation. The preview is accessible through an HMAC-signed bearer URL. Print downloads require `manage_woocommerce`, an order-item reference and a nonce.
+
+Map metadata uses `posteroom_map`, never the old `posteroom_meta` key. Cart display, Blocks thumbnails and checkout order items preserve the map name, size, orientation, location and artwork reference. Order persistence uses WooCommerce APIs and supports HPOS. Unordered artwork expires after seven days; order-linked artwork is retained. Missing/expired print files prevent checkout.
+
+Back up the private directory with the order database. If its setting changes, copy existing files before enabling the new location. Session lock files are small persistent synchronization files. Deactivation unschedules cleanup but preserves artwork and settings.
+
+## Build and source
+
+```bash
+bun install --frozen-lockfile
+bun run build:wordpress
+python3 scripts/package-wordpress.py /absolute/path/posteroom-map-designer.zip
 ```
 
-This is a new integration contract, **not an existing Posteroom endpoint**. No endpoint, product ID, variation ID, nonce or price has been guessed. Adapt the existing AI poster generator's AJAX handler to this contract once its source and product mapping are available. Keep secrets out of browser code. The supplied adapter must upload the PNG and await WooCommerce confirmation before resolving; it must not resolve on upload alone.
+Package only a clean committed source tree and its matching successful build. The ZIP includes the original license/trademark notices and a source archive. The visible Source code link in the embedded designer points to that exact archive.
 
-The intended deployment is the designer mounted on the Posteroom origin, sharing the WooCommerce browser session. Returned cart links must resolve to the page's origin. A standalone preview on another origin does not create a Posteroom cart. Global CSS, asset paths and service-worker scope still need adaptation for a WordPress mount.
+## Existing AI snippet findings
 
-## Receiver requirements before enabling orders
+The owner-supplied legacy snippet accepts client `custom_price`; the new map endpoint does not. The last legacy admin-thumbnail filter must change its accepted argument count from `1` to `2` to match its callback. The new plugin does not rewrite or disable those snippets, and does not include the FAL credential.
 
-- Validate the session and request token using the existing shop integration. Resolve the A3/A4 product or variation and price on the server.
-- Validate the uploaded PNG, byte and pixel limits, paper dimensions and metadata. Restrict accepted paper/orientation combinations; never trust client prices or product IDs.
-- Store the print asset and generate a cart thumbnail, then keep their references and design metadata on the cart item and order. Apply access control and retention appropriate to the shop.
-- Deduplicate `requestId` per customer session atomically. A retry of the same design reuses the same request ID and PNG after an unconfirmed response. A successful add or a changed design uses a new ID. Requests are never retried automatically.
-- Return an actual WooCommerce cart item key and cart URL only after the add succeeds. On an error, reject the adapter promise. Client confirmation times out after one minute; an upload may still finish on the server, so the UI asks the customer to check the cart before retrying.
+## Validation boundary
 
-Double clicks are blocked while preparing/uploading. A modal keeps the design controls unavailable during submission and provides progress and confirmation. No real WooCommerce submission has been tested or enabled yet.
+See the PR for the completed checks. Local PHP/WooCommerce integration checks do not validate the production host, payment gateway, physical shipping rates, browser WebGL rendering or Elementor's visual layout. Complete a staging checkout and a real print proof before accepting customer orders.

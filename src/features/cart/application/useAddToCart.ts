@@ -1,11 +1,11 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import { CM_PER_INCH } from "@/core/config";
 import {
   createCartRequestId, ensureGoogleFont, getAllMarkerIcons,
   getLayoutOption, getPosterCart, renderPosterPng,
 } from "@/core/services";
-import type { CartReceipt, CartRequest } from "../domain/ports";
+import type { CartOffer, CartReceipt, CartRequest } from "../domain/ports";
 
 export function useAddToCart() {
   const { state, dispatch, effectiveTheme, mapRef } = usePosterContext();
@@ -14,6 +14,18 @@ export function useAddToCart() {
   const [phase, setPhase] = useState<"idle" | "preparing" | "adding" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [receipt, setReceipt] = useState<CartReceipt | null>(null);
+  const [offer, setOffer] = useState<CartOffer | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    const cart = getPosterCart();
+    setOffer(null);
+    if (cart?.getOffer) {
+      setOffer({ label: "Checking price…", available: false });
+      cart.getOffer(state.form.layout).then(value => { if (!cancelled) setOffer(value); })
+        .catch(() => { if (!cancelled) setOffer({ label: "Ordering unavailable", available: false }); });
+    }
+    return () => { cancelled = true; };
+  }, [state.form.layout]);
 
   const addToCart = useCallback(async () => {
     if (busy.current || state.isExporting) return;
@@ -93,7 +105,8 @@ export function useAddToCart() {
       setMessage("Your poster has been added to your cart.");
       setPhase("success");
     } catch (error) {
-      setMessage(sentToShop
+      const shopRejected = error instanceof Error && error.name === "ShopCartError";
+      setMessage(shopRejected ? error.message : sentToShop
         ? "We could not confirm your cart. Check your cart before trying again."
         : error instanceof Error ? error.message : "Your poster could not be prepared. Please try again.");
       setPhase("error");
@@ -103,5 +116,5 @@ export function useAddToCart() {
     }
   }, [state, dispatch, effectiveTheme, mapRef]);
 
-  return { addToCart, phase, message, receipt, reset: () => setPhase("idle") };
+  return { addToCart, phase, message, receipt, offer, reset: () => setPhase("idle") };
 }

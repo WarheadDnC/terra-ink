@@ -1,3 +1,4 @@
+import { publicAsset } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
@@ -11,7 +12,7 @@ export default function GeneralHeader({ onAboutOpen }: GeneralHeaderProps) {
       <h1 className="posteroom-brand" aria-label="Posteroom Map Designer">
         <img
           className="posteroom-brand-logo"
-          src="/assets/posteroom-logo.png"
+          src={publicAsset("assets/posteroom-logo.png")}
           alt="Posteroom"
           width={160}
           height={160}

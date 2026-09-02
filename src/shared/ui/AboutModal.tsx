@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import { createPortal } from "react-dom";
 import InfoPanel from "./InfoPanel";
 import { CloseIcon } from "./Icons";
@@ -32,6 +33,6 @@ export default function AboutModal({ onClose }: AboutModalProps) {
         <InfoPanel />
       </div>
     </div>,
-    document.body,
+    getPortalContainer(),
   );
 }

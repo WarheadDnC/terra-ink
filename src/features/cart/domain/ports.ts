@@ -24,7 +24,10 @@ export interface CartReceipt {
   cartUrl: string;
 }
 
+export interface CartOffer { label: string; available: boolean; }
+
 /** Implemented by the Posteroom host page after its WooCommerce endpoint is wired. */
 export interface IPosterCart {
   addItem(request: CartRequest): Promise<CartReceipt>;
+  getOffer?(layout: string): Promise<CartOffer>;
 }

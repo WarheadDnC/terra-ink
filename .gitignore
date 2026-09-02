@@ -4,6 +4,7 @@ package-lock.json
 
 # Build output
 dist/
+dist-wordpress/
 
 # Logs
 *.log
@@ -22,6 +23,8 @@ coverage/
 .cache/
 .eslintcache
 *.tsbuildinfo
+__pycache__/
+*.pyc
 
 # Local environment files
 .env
@@ -41,3 +44,7 @@ updates.json
 
 # ignore agent setting files
 .claude/
+
+# Generated WordPress plugin assets
+wordpress/posteroom-map-designer/build/
+wordpress/posteroom-map-designer/source/

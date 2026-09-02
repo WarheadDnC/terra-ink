@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import maplibregl from "maplibre-gl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
@@ -43,7 +44,7 @@ export async function captureMapAsCanvas(
   } = resolveExportRenderParams(map, exportWidth, exportHeight);
 
   const offscreenContainer = createOffscreenContainer(renderWidth, renderHeight);
-  document.body.appendChild(offscreenContainer);
+  getPortalContainer().appendChild(offscreenContainer);
 
   const exportMap = new maplibregl.Map({
     container: offscreenContainer,

@@ -3,7 +3,7 @@ import { useAddToCart } from "../application/useAddToCart";
 import { CartIcon, LoaderIcon } from "@/shared/ui/Icons";
 
 export default function AddToCartButton({ isMobile }: { isMobile: boolean }) {
-  const { addToCart, phase, message, receipt, reset } = useAddToCart();
+  const { addToCart, phase, message, receipt, offer, reset } = useAddToCart();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const isBusy = phase === "preparing" || phase === "adding";
   const isOpen = phase !== "idle";
@@ -21,11 +21,11 @@ export default function AddToCartButton({ isMobile }: { isMobile: boolean }) {
         type="button"
         className={`${isMobile ? "mobile-export-fab-trigger" : "export-fab-trigger-desktop"} cart-trigger`}
         onClick={() => void addToCart()}
-        disabled={isBusy}
+        disabled={isBusy || (offer !== null && !offer.available)}
         aria-haspopup="dialog"
       >
         <CartIcon aria-hidden="true" />
-        <span>Add to cart</span>
+        <span>{offer ? (offer.available ? `Add to cart — ${offer.label}` : offer.label) : "Add to cart"}</span>
       </button>
       <dialog
         ref={dialogRef}

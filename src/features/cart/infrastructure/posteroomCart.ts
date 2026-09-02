@@ -11,6 +11,7 @@ export function getPosterCart(): IPosterCart | null {
   if (!bridge || typeof bridge.addItem !== "function") return null;
 
   return {
+    getOffer: bridge.getOffer?.bind(bridge),
     async addItem(request: CartRequest): Promise<CartReceipt> {
       let timeout: ReturnType<typeof setTimeout>;
       let receipt: CartReceipt;

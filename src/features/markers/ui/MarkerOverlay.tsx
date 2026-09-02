@@ -1,3 +1,4 @@
+import { getScrollRoots } from "@/core/embedding";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type {
   MarkerIconDefinition,
@@ -415,20 +416,12 @@ export default function MarkerOverlay({
       return;
     }
 
-    const { overflow, touchAction } = document.body.style;
-    const { overflow: htmlOverflow, touchAction: htmlTouchAction } =
-      document.documentElement.style;
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.touchAction = "none";
-
-    return () => {
-      document.body.style.overflow = overflow;
-      document.body.style.touchAction = touchAction;
-      document.documentElement.style.overflow = htmlOverflow;
-      document.documentElement.style.touchAction = htmlTouchAction;
-    };
+    const originals = getScrollRoots().map(element => ({ element,
+      overflow: element.style.overflow, touchAction: element.style.touchAction }));
+    originals.forEach(({ element }) => { element.style.overflow = "hidden"; element.style.touchAction = "none"; });
+    return () => originals.forEach(({ element, overflow, touchAction }) => {
+      element.style.overflow = overflow; element.style.touchAction = touchAction;
+    });
   }, [activeMarkerId, isMarkerEditMode, isTouchSelectionActive]);
 
   useEffect(() => {
