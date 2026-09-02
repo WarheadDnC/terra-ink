@@ -6,14 +6,14 @@ const fallbackSymbol =
   "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 40'><rect x='2' y='2' width='60' height='36' rx='5' fill='none' stroke='#9CC3DA' stroke-width='2'/><rect x='14' y='8' width='36' height='24' rx='3' fill='#4B91B7'/></svg>";
 
 const fallbackLayout: Layout = {
-  id: "print_poster_20x30",
-  name: "Poster 20 x 30 cm",
-  description: "Classic portrait poster size (2:3 ratio).",
-  width: 20,
-  height: 30,
+  id: "print_a4_portrait",
+  name: "A4 Portrait",
+  description: "ISO A4 portrait format.",
+  width: 21,
+  height: 29.7,
   unit: "cm",
-  widthCm: 20,
-  heightCm: 30,
+  widthCm: 21,
+  heightCm: 29.7,
   symbol: fallbackSymbol,
   categoryId: "print",
   categoryName: "Print",

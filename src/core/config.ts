@@ -5,8 +5,8 @@ export const CM_PER_INCH = 2.54;
 
 export const MIN_POSTER_CM = 4;
 export const MAX_POSTER_CM = 45;
-export const DEFAULT_POSTER_WIDTH_CM = 20;
-export const DEFAULT_POSTER_HEIGHT_CM = 30;
+export const DEFAULT_POSTER_WIDTH_CM = 21;
+export const DEFAULT_POSTER_HEIGHT_CM = 29.7;
 export const LAYOUT_MATCH_TOLERANCE_CM = 0.01;
 
 export const MIN_DISTANCE_METERS = 100;
