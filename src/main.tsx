@@ -18,6 +18,9 @@ const syncDisplayMode = () => {
     : "browser";
 };
 
+// Keep installation available through the browser menu without a proactive prompt.
+window.addEventListener("beforeinstallprompt", (event) => event.preventDefault());
+
 syncDisplayMode();
 onPlatformAdapterChange(syncDisplayMode);
 const displayModeQuery = window.matchMedia("(display-mode: standalone)");

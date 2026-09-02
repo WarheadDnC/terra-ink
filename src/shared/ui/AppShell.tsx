@@ -9,7 +9,6 @@ import DesktopNavBar from "@/shared/ui/DesktopNavBar";
 import FooterNote from "@/shared/ui/FooterNote";
 import PreviewPanel from "@/features/poster/ui/PreviewPanel";
 import MobileNavBar, { type MobileTab } from "@/shared/ui/MobileNavBar";
-import InstallPrompt from "@/features/install/ui/InstallPrompt";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
@@ -183,7 +182,6 @@ export default function AppShell() {
       data-desktop-tab={desktopTab}
     >
       <GeneralHeader onAboutOpen={() => setAboutOpen(true)} />
-      <InstallPrompt />
       <StartupLocationModal />
 
       <DesktopNavBar

@@ -1,8 +1,7 @@
-import { APP_NAME, APP_VERSION, REPO_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
+import { REPO_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 
 export default function FooterNote() {
-  const appVersion = APP_VERSION;
   const contactEmail = String(CONTACT_EMAIL ?? "").trim();
   const legalNoticeUrl = String(LEGAL_NOTICE_URL ?? "").trim();
   const privacyUrl = String(PRIVACY_URL ?? "").trim();
@@ -46,7 +45,8 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          {APP_NAME} v{appVersion} by Posteroom |{" "}
+          <span>Poster engine by Reckoning Web for Posteroom</span>
+          <span aria-hidden="true"> | </span>
           <a className="source-link" href={REPO_URL} target="_blank" rel="noreferrer">
             Source code
           </a>

@@ -850,6 +850,7 @@
 
   .desktop-footer {
     display: flex;
+    flex-wrap: wrap;
     position: fixed;
     left: 0;
     right: 0;
@@ -876,6 +877,13 @@
     margin: 0;
   }
 
+  .desktop-footer .made-note {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    white-space: normal;
+  }
+
   .desktop-footer-left,
   .desktop-footer-middle,
   .desktop-footer-right {
@@ -886,17 +894,17 @@
 
   .desktop-footer-left {
     justify-content: flex-start;
-    flex: 1 1 0;
+    flex: 0 1 auto;
   }
 
   .desktop-footer-middle {
     justify-content: center;
-    flex: 0 0 auto;
+    flex: 1 1 auto;
   }
 
   .desktop-footer-right {
     justify-content: flex-end;
-    flex: 1 1 0;
+    flex: 0 0 auto;
     gap: 8px;
     position: relative;
   }
