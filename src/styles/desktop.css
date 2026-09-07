@@ -1351,11 +1351,15 @@
   }
 
   .app-shell > .preview-panel .poster-frame {
-    max-height: calc(88vh - 44px);
+    max-height: calc(84vh - 44px);
     width: min(
       calc(100% - 40px),
-      calc((88vh - 44px) * var(--poster-aspect, 0.6666667))
+      calc((84vh - 44px) * var(--poster-aspect, 0.6666667))
     );
+  }
+
+  .app-shell > .preview-panel .poster-frame .map-controls {
+    transform: translate(-50%, 112%);
   }
 
   .app-shell > .preview-panel .settings-info-card {
