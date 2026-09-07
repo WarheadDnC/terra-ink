@@ -1300,3 +1300,93 @@
 .desktop-layout-label {
   display: none;
 }
+
+/*
+ * Compact desktop layout
+ *
+ * Fixed-width overlays that feel balanced on a 4K / wide desktop consume too
+ * much of a Full HD workspace. Keep the type and controls at their normal
+ * readable size, but reduce the surrounding chrome and give the poster a
+ * little more of the available height.
+ */
+@media (min-width: 769px) and (max-width: 2100px) and (hover: hover) and (pointer: fine) {
+  .app-shell {
+    grid-template-columns: 54px 1fr;
+    grid-template-rows: 56px 1fr;
+  }
+
+  .general-header {
+    padding-inline: 16px;
+  }
+
+  .desktop-nav-bar {
+    padding-top: 6px;
+  }
+
+  .desktop-nav-tab {
+    width: 46px;
+    height: 48px;
+  }
+
+  .desktop-left-panel {
+    top: 108px;
+    left: 70px;
+    width: 300px;
+    max-height: calc(100vh - 160px);
+  }
+
+  .desktop-location-row-wrap {
+    top: 66px;
+    left: 70px;
+    width: 380px;
+  }
+
+  .desktop-settings-slide {
+    max-height: calc(100vh - 160px);
+  }
+
+  .app-shell > .preview-panel {
+    --poster-frame-margin-top: -30px;
+    --poster-frame-margin-bottom: 18px;
+  }
+
+  .app-shell > .preview-panel .poster-frame {
+    max-height: calc(88vh - 44px);
+    width: min(
+      calc(100% - 40px),
+      calc((88vh - 44px) * var(--poster-aspect, 0.6666667))
+    );
+  }
+
+  .app-shell > .preview-panel .settings-info-card {
+    top: 10px;
+    right: 10px;
+    width: 272px;
+  }
+
+  .desktop-footer {
+    padding: 7px 14px 7px 70px;
+  }
+
+  .desktop-export-fab {
+    right: 14px;
+  }
+}
+
+/* On narrower laptops the summary is secondary and would compete with the
+   poster and editor panel. Its information remains available in the controls. */
+@media (min-width: 769px) and (max-width: 1500px) and (hover: hover) and (pointer: fine) {
+  .desktop-left-panel {
+    left: 66px;
+    width: 292px;
+  }
+
+  .desktop-location-row-wrap {
+    left: 66px;
+    width: 350px;
+  }
+
+  .app-shell > .preview-panel .settings-info-card {
+    display: none;
+  }
+}
