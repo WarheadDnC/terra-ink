@@ -56,6 +56,7 @@ with (BASE/'integration-server.log').open('w') as log:
   else:raise RuntimeError('WordPress did not become ready')
   check(config['success'],'session bootstrap')
   check(any(cookie.name.startswith('wp_woocommerce_session_') for cookie in c.jar),'fresh guest receives WooCommerce session cookie')
+  check('data-endpoint="/wp-admin/admin-ajax.php"' in c.inspect('shortcode')['html'],'shortcode keeps guest AJAX on the current origin')
   print('RUNTIME',c.inspect(),flush=True)
   print('DIAGNOSE',c.inspect('diagnose'),flush=True)
   check(config['data']['offers']['print_a4_portrait']['available'],'available configured A4 variation')

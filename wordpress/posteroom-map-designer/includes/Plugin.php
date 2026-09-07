@@ -86,7 +86,10 @@ final class Plugin {
         // Document font registration is required for canvas export and Shadow DOM.
         wp_enqueue_style('posteroom-map-fonts', 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap', [], null);
         if (function_exists('WC')) wp_enqueue_script('wc-cart-fragments');
-        return '<div data-posteroom-designer data-endpoint="' . esc_url(admin_url('admin-ajax.php')) . '" data-assets="' . esc_url($base) . '" data-source="' . esc_url(plugins_url('source/terra-ink-source.zip', FILE)) . '"><p>Loading map designer…</p></div><noscript>Enable JavaScript to create your map poster.</noscript>';
+        // Use the visitor's current origin. WordPress may be configured without
+        // www while a cache/CDN serves guests on www (or the reverse).
+        $endpoint = wp_make_link_relative(admin_url('admin-ajax.php'));
+        return '<div data-posteroom-designer data-endpoint="' . esc_url($endpoint) . '" data-assets="' . esc_url($base) . '" data-source="' . esc_url(plugins_url('source/terra-ink-source.zip', FILE)) . '"><p>Loading map designer…</p></div><noscript>Enable JavaScript to create your map poster.</noscript>';
     }
 
     private function session(): void {

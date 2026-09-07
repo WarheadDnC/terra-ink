@@ -32,7 +32,7 @@ Development metadata uses `noindex, nofollow`, and the upstream sitemap and cano
 
 ## Changes in this fork
 
-Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.10` (WordPress plugin `0.1.2`), making anonymous WooCommerce cart sessions resilient when a cache or security layer drops the bootstrap cookie. Git history records the modified files and dates.
+Posteroom modifications began on 2026-09-02. The current version is `0.4.2-posteroom.11` (WordPress plugin `0.1.3`), keeping guest AJAX on the visitor's current origin and making anonymous WooCommerce cart sessions resilient to cache/security middleware. Git history records the modified files and dates.
 
 The desktop/mobile header and startup location screen use the owner-supplied `public/assets/posteroom-logo.png`, preserved unchanged with its white background. The startup screen displays POSTEROOM beneath the logo. The TI monogram and generated application icons from the initial adaptation remain in the other application assets. The original upstream banner and screenshots remain only as provenance assets for the [archived upstream README](docs/UPSTREAM_README.md); they are not used by the application interface or metadata.
 

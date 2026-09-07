@@ -10,6 +10,9 @@ if ($mode==='diagnose') {
     foreach(['a3','a4'] as $size){$p=wc_get_product($s[$size]);$out[$size]=$p ? ['id'=>$p->get_id(),'type'=>$p->get_type(),'price'=>$p->get_price(),'purchasable'=>$p->is_purchasable(),'stock'=>$p->is_in_stock(),'attributes'=>$p->get_variation_attributes()] : false;}
     echo json_encode($out);exit;
 }
+if ($mode==='shortcode') {
+    echo json_encode(['html'=>do_shortcode('[posteroom_map_designer]')]);exit;
+}
 if ($mode==='settings') {
     $s=Posteroom\Maps\Plugin::settings();
     if (isset($_POST['enabled'])) $s['enabled']=(int)$_POST['enabled'];
