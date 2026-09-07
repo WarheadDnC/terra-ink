@@ -101,6 +101,33 @@ final class Plugin {
         WC()->session->set_customer_session_cookie(true);
         nocache_headers();
     }
+    private function issue_token(): string {
+        // Keep the bootstrap independent from a persisted guest cookie. Some
+        // cache/security stacks drop the first WooCommerce Set-Cookie header,
+        // while the add-to-cart response can still establish the cart session.
+        $payload = (time() + 30 * MINUTE_IN_SECONDS) . '.' . bin2hex(random_bytes(16));
+        return $payload . '.' . hash_hmac('sha256', $payload, wp_salt('nonce'));
+    }
+    private function valid_token(string $token): bool {
+        $parts = explode('.', $token);
+        if (count($parts) !== 3 || !ctype_digit($parts[0]) || !preg_match('/^[a-f0-9]{32}$/D', $parts[1]) || !preg_match('/^[a-f0-9]{64}$/D', $parts[2])) return false;
+        $expires = (int) $parts[0];
+        if ($expires < time() || $expires > time() + 31 * MINUTE_IN_SECONDS) return false;
+        $payload = $parts[0] . '.' . $parts[1];
+        return hash_equals(hash_hmac('sha256', $payload, wp_salt('nonce')), $parts[2]);
+    }
+    private function claim_token(string $token): bool {
+        if (!$this->valid_token($token)) return false;
+        $parts = explode('.', $token);
+        $key = 'posteroom_map_token_' . $parts[1];
+        $customer = (string) WC()->session->get_customer_id();
+        $claimed = get_transient($key);
+        if ($claimed === false) {
+            set_transient($key, $customer, 31 * MINUTE_IN_SECONDS);
+            $claimed = get_transient($key);
+        }
+        return is_string($claimed) && hash_equals($claimed, $customer);
+    }
     private function product(string $size): \WC_Product_Variation {
         $s = self::settings();
         $p = wc_get_product($s[strtolower($size)] ?? 0);
@@ -121,8 +148,7 @@ final class Plugin {
     public function bootstrap(): void {
         try {
             $this->session();
-            $token = WC()->session->get('posteroom_map_token');
-            if (!$token) { $token = bin2hex(random_bytes(32)); WC()->session->set('posteroom_map_token', $token); WC()->session->save_data(); }
+            $token = $this->issue_token();
             $ready = (bool) self::settings()['enabled'];
             if ($ready) { try { Storage::root(); } catch (\Throwable $e) { $ready = false; } }
             $offers = [];
@@ -170,7 +196,7 @@ final class Plugin {
         try {
             $this->session();
             $token = isset($_POST['token']) && is_string($_POST['token']) ? wp_unslash($_POST['token']) : '';
-            if (!$token || !hash_equals((string) WC()->session->get('posteroom_map_token', ''), $token)) throw new \RuntimeException('Your shop session expired. Please refresh the page.', 403);
+            if (!$token || !$this->claim_token($token)) throw new \RuntimeException('Your shop session expired. Please refresh the page.', 403);
             if (!self::settings()['enabled']) throw new \RuntimeException('Map ordering is not enabled yet.', 503);
             $request = isset($_POST['request_id']) && is_string($_POST['request_id']) ? wp_unslash($_POST['request_id']) : '';
             if (!preg_match('/^[a-f0-9-]{36}$/D', $request)) throw new \RuntimeException('Invalid design request.', 400);

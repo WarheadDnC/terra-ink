@@ -55,6 +55,7 @@ with (BASE/'integration-server.log').open('w') as log:
    time.sleep(1)
   else:raise RuntimeError('WordPress did not become ready')
   check(config['success'],'session bootstrap')
+  check(any(cookie.name.startswith('wp_woocommerce_session_') for cookie in c.jar),'fresh guest receives WooCommerce session cookie')
   print('RUNTIME',c.inspect(),flush=True)
   print('DIAGNOSE',c.inspect('diagnose'),flush=True)
   check(config['data']['offers']['print_a4_portrait']['available'],'available configured A4 variation')
@@ -63,7 +64,11 @@ with (BASE/'integration-server.log').open('w') as log:
   design={'schemaVersion':1,'paperSize':'A4','orientation':'portrait','widthCm':21,'heightCm':29.7,'dpi':300,'title':'Θεσσαλονίκη','subtitle':'Greece','theme':'mono','latitude':40.64,'longitude':22.94}
   data={'action':'posteroom_add_to_cart','token':token,'request_id':request,'design':json.dumps(design),'price':'0.01','product_id':'1'}
   art=png(2480,3508)
+  # Reproduce a cache/security layer discarding the bootstrap cookie. The
+  # add-to-cart request must establish its own guest cart session.
+  c=Client()
   status,result=c.ajax(data,art);check(status==200 and result['success'],f'PNG upload creates real cart item: {result}')
+  check(any(cookie.name.startswith('wp_woocommerce_session_') for cookie in c.jar),'guest add-to-cart establishes persistent cart cookie')
   key=result['data']['cartItemKey']
   cart=c.inspect();check(len(cart['items'])==1 and float(cart['items'][0]['price'])==16.9,'client price/product tampering ignored')
   status,retry=c.ajax(data,art);check(status==200 and retry['data']['cartItemKey']==key,'same request returns same cart key')
