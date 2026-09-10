@@ -5,7 +5,6 @@ import {
   LayersIcon,
   MarkersIcon,
   StyleIcon,
-  SettingsIcon,
 } from "./Icons";
 import type { MobileTab } from "./MobileNavBar";
 
@@ -64,16 +63,6 @@ export default function DesktopNavBar({
           <span className="desktop-nav-label">{label}</span>
         </button>
       ))}
-
-      <button
-        type="button"
-        className="desktop-nav-tab desktop-nav-tab--settings"
-        aria-label="Settings"
-        disabled
-      >
-        <SettingsIcon className="desktop-nav-icon" />
-        <span className="desktop-nav-label">Settings</span>
-      </button>
     </nav>
   );
 }

@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import { createPortal } from "react-dom";
 import { KOFI_URL, SOCIAL_INSTAGRAM } from "@/core/config";
 import { CloseIcon, InstagramIcon } from "@/shared/ui/Icons";
@@ -108,6 +109,6 @@ export default function SupportModal({
         </div>
       </div>
     </div>,
-    document.body,
+    getPortalContainer(),
   );
 }

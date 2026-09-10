@@ -1,8 +1,7 @@
-﻿import { APP_VERSION, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
+import { REPO_URL, UPSTREAM_REPO_URL, ADAPTATION_CREDIT, LICENSE_NOTICES_URL, CONTACT_EMAIL, LEGAL_NOTICE_URL, PRIVACY_URL } from "@/core/config";
 import { InfoIcon } from "@/shared/ui/Icons";
 
 export default function FooterNote() {
-  const appVersion = APP_VERSION;
   const contactEmail = String(CONTACT_EMAIL ?? "").trim();
   const legalNoticeUrl = String(LEGAL_NOTICE_URL ?? "").trim();
   const privacyUrl = String(PRIVACY_URL ?? "").trim();
@@ -46,8 +45,14 @@ export default function FooterNote() {
 
       <div className="desktop-footer-middle">
         <p className="made-note">
-          Terraink™ v{appVersion} | © 2026 | Made with{" "}
-          <span className="heart">❤︎</span> in Hannover, Germany
+          <span className="adaptation-credit">{ADAPTATION_CREDIT}</span>
+          <span>Based on <a className="source-link" href={UPSTREAM_REPO_URL} target="_blank" rel="noreferrer">Terraink</a></span>
+          <span aria-hidden="true"> · </span>
+          <a className="source-link" href={LICENSE_NOTICES_URL} target="_blank" rel="noreferrer">AGPL-3.0</a>
+          <span aria-hidden="true"> · </span>
+          <a className="source-link" href={REPO_URL} target="_blank" rel="noreferrer">
+            Source code
+          </a>
         </p>
       </div>
 

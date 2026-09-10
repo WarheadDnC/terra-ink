@@ -182,33 +182,6 @@
     line-height: 1;
   }
 
-  /* Settings button — separate pill/circle to the right */
-  .mobile-nav-settings {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(146, 176, 200, 0.14);
-    border-radius: 20px;
-    background: var(--overlay-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.55),
-      0 2px 8px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    color: rgba(180, 205, 225, 0.4);
-    cursor: default;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .mobile-nav-settings-icon {
-    width: 20px;
-    height: 20px;
-  }
-
   .startup-location-modal {
     position: fixed;
     inset: 0;

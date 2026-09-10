@@ -1,7 +1,7 @@
 {
-  "name": "Terraink",
-  "short_name": "Terraink",
-  "description": "Free map poster and wallpaper creator. Design custom, print-ready map art for any location — export as PNG, PDF, or SVG.",
+  "name": "Terra Ink by Posteroom",
+  "short_name": "Terra Ink",
+  "description": "Design a custom map poster with Terra Ink by Posteroom.",
   "id": "/",
   "start_url": "/",
   "scope": "/",

@@ -40,3 +40,10 @@ export { createPdfBlobFromCanvas } from "@/features/export/infrastructure/pdfExp
 export { createPosterFilename } from "@/features/export/infrastructure/filenameGenerator";
 
 export { triggerDownloadBlob } from "@/features/export/infrastructure/fileDownloader";
+
+/* ── Posteroom cart ── */
+
+export { getPosterCart, createCartRequestId } from "@/features/cart/infrastructure/posteroomCart";
+export { renderPosterPng } from "@/features/export/infrastructure/renderPosterPng";
+export { getAllMarkerIcons } from "@/features/markers/infrastructure/iconRegistry";
+export { getLayoutOption } from "@/features/layout/infrastructure/layoutRepository";

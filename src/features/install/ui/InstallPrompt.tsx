@@ -2,7 +2,7 @@ import useInstallPrompt from "../application/useInstallPrompt";
 import { FaMobileAlt as MobileIcon } from "react-icons/fa";
 import { FiShare as ShareIcon } from "react-icons/fi";
 import React, { useState } from "react";
-import { INSTALL_DIAGNOSTICS_ENABLED } from "@/core/config";
+import { APP_NAME, INSTALL_DIAGNOSTICS_ENABLED } from "@/core/config";
 
 export default function InstallPrompt() {
   const {
@@ -28,7 +28,7 @@ export default function InstallPrompt() {
               className="install-prompt-mobile-icon"
               aria-hidden="true"
             />
-            Install Terraink for faster access and a better experience.
+            Install {APP_NAME} for faster access and a better experience.
           </span>
           <div className="install-prompt-actions">
             <button
@@ -120,7 +120,7 @@ export default function InstallPrompt() {
               className="install-prompt-mobile-icon"
               aria-hidden="true"
             />
-            For faster access and a better experience, install Terraink from
+            For faster access and a better experience, install {APP_NAME} from
             your browser menu:
             <strong> Install app </strong>
             or

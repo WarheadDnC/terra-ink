@@ -1,3 +1,4 @@
+import { getPortalContainer } from "@/core/embedding";
 import maplibregl from "maplibre-gl";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import type { MarkerProjectionInput } from "@/features/markers/domain/types";
@@ -23,6 +24,7 @@ export async function captureMapAsCanvas(
   map: MaplibreMap,
   exportWidth: number,
   exportHeight: number,
+  requireFullResolution = false,
 ): Promise<CapturedMapResult> {
   await waitForMapIdle(map);
 
@@ -42,7 +44,7 @@ export async function captureMapAsCanvas(
   } = resolveExportRenderParams(map, exportWidth, exportHeight);
 
   const offscreenContainer = createOffscreenContainer(renderWidth, renderHeight);
-  document.body.appendChild(offscreenContainer);
+  getPortalContainer().appendChild(offscreenContainer);
 
   const exportMap = new maplibregl.Map({
     container: offscreenContainer,
@@ -61,6 +63,9 @@ export async function captureMapAsCanvas(
     await waitForMapIdle(exportMap);
 
     const glCanvas = exportMap.getCanvas();
+    if (requireFullResolution && (glCanvas.width < exportWidth || glCanvas.height < exportHeight)) {
+      throw new Error("This device cannot prepare the poster at full print resolution. Please try another device.");
+    }
     const exportCanvas = document.createElement("canvas");
     exportCanvas.width = exportWidth;
     exportCanvas.height = exportHeight;

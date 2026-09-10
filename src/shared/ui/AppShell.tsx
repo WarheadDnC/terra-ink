@@ -1,3 +1,4 @@
+import { getScrollRoots } from "@/core/embedding";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { usePosterContext } from "@/features/poster/ui/PosterContext";
 import {
@@ -9,22 +10,16 @@ import DesktopNavBar from "@/shared/ui/DesktopNavBar";
 import FooterNote from "@/shared/ui/FooterNote";
 import PreviewPanel from "@/features/poster/ui/PreviewPanel";
 import MobileNavBar, { type MobileTab } from "@/shared/ui/MobileNavBar";
-import InstallPrompt from "@/features/install/ui/InstallPrompt";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
 import { CheckIcon } from "@/shared/ui/Icons";
-import SupportModal from "@/features/export/ui/SupportModal";
-import {
-  SUPPORT_PROMPT_EVENT,
-  type SupportPromptState,
-} from "@/features/export/application/useExport";
 
 const AboutModal = lazy(() => import("@/shared/ui/AboutModal"));
 const SettingsPanel = lazy(() => import("@/features/poster/ui/SettingsPanel"));
 const AnnouncementModal = lazy(
   () => import("@/features/updates/ui/AnnouncementModal"),
 );
-const ExportFab = lazy(() => import("@/features/export/ui/ExportFab"));
+const AddToCartButton = lazy(() => import("@/features/cart/ui/AddToCartButton"));
 const DesktopLocationBar = lazy(() => import("@/shared/ui/DesktopLocationBar"));
 
 function SettingsDrawer({
@@ -86,21 +81,11 @@ export default function AppShell() {
   const [desktopLocationRowVisible, setDesktopLocationRowVisible] =
     useState(true);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const [supportPrompt, setSupportPrompt] = useState<SupportPromptState | null>(null);
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      setSupportPrompt((e as CustomEvent<SupportPromptState>).detail);
-    };
-    window.addEventListener(SUPPORT_PROMPT_EVENT, handler);
-    return () => window.removeEventListener(SUPPORT_PROMPT_EVENT, handler);
-  }, []);
-
   useEffect(() => {
     const preload = () => {
       void import("@/features/poster/ui/SettingsPanel");
       void import("@/shared/ui/DesktopLocationBar");
-      void import("@/features/export/ui/ExportFab");
+      void import("@/features/cart/ui/AddToCartButton");
       void import("@/features/updates/ui/AnnouncementModal");
     };
 
@@ -131,22 +116,12 @@ export default function AppShell() {
       return;
     }
 
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-    const previousBodyOverscroll = document.body.style.overscrollBehavior;
-    const previousHtmlOverscroll = document.documentElement.style.overscrollBehavior;
-
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overscrollBehavior = "none";
-    document.documentElement.style.overscrollBehavior = "none";
-
-    return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
-      document.body.style.overscrollBehavior = previousBodyOverscroll;
-      document.documentElement.style.overscrollBehavior = previousHtmlOverscroll;
-    };
+    const originals = getScrollRoots().map(element => ({ element,
+      overflow: element.style.overflow, overscroll: element.style.overscrollBehavior }));
+    originals.forEach(({ element }) => { element.style.overflow = "hidden"; element.style.overscrollBehavior = "none"; });
+    return () => originals.forEach(({ element, overflow, overscroll }) => {
+      element.style.overflow = overflow; element.style.overscrollBehavior = overscroll;
+    });
   }, [mobileDrawerOpen]);
 
   const handleMobileTabChange = (tab: MobileTab) => {
@@ -198,7 +173,6 @@ export default function AppShell() {
       data-desktop-tab={desktopTab}
     >
       <GeneralHeader onAboutOpen={() => setAboutOpen(true)} />
-      <InstallPrompt />
       <StartupLocationModal />
 
       <DesktopNavBar
@@ -293,7 +267,7 @@ export default function AppShell() {
         onTabChange={handleMobileTabChange}
       />
       <Suspense fallback={null}>
-        <ExportFab isMobile={isMobileViewport} />
+        <AddToCartButton isMobile={isMobileViewport} />
       </Suspense>
 
       <FooterNote />
@@ -304,13 +278,6 @@ export default function AppShell() {
         <Suspense fallback={null}>
           <AboutModal onClose={() => setAboutOpen(false)} />
         </Suspense>
-      ) : null}
-      {supportPrompt ? (
-        <SupportModal
-          posterNumber={supportPrompt.posterNumber}
-          variant={supportPrompt.variant}
-          onClose={() => setSupportPrompt(null)}
-        />
       ) : null}
     </div>
   );

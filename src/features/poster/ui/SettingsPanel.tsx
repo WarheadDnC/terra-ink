@@ -158,15 +158,11 @@ export default function SettingsPanel({
               <MapSettingsSection
                 activeMobileTab={mobileTab}
                 form={state.form}
-                onChange={handleChange}
-                onNumericFieldBlur={handleNumericFieldBlur}
                 onThemeChange={handleThemeChange}
                 onLayoutChange={handleLayoutChange}
                 selectedTheme={selectedTheme}
                 themeOptions={themeOptions}
                 layoutGroups={layoutGroups}
-                minPosterCm={MIN_POSTER_CM}
-                maxPosterCm={MAX_POSTER_CM}
                 customColors={state.customColors}
                 onColorChange={handleColorChange}
                 onResetColors={handleResetColors}
@@ -195,15 +191,11 @@ export default function SettingsPanel({
               <MapSettingsSection
                 activeMobileTab={mobileTab}
                 form={state.form}
-                onChange={handleChange}
-                onNumericFieldBlur={handleNumericFieldBlur}
                 onThemeChange={handleThemeChange}
                 onLayoutChange={handleLayoutChange}
                 selectedTheme={selectedTheme}
                 themeOptions={themeOptions}
                 layoutGroups={layoutGroups}
-                minPosterCm={MIN_POSTER_CM}
-                maxPosterCm={MAX_POSTER_CM}
                 customColors={state.customColors}
                 onColorChange={handleColorChange}
                 onResetColors={handleResetColors}

@@ -27,7 +27,6 @@
 .desktop-settings-slide,
 .desktop-export-fab,
 .desktop-install-badge,
-.desktop-settings-deco,
 .desktop-left-panel {
   display: none;
 }
@@ -281,16 +280,6 @@
   .desktop-nav-label {
     line-height: 1;
     font-size: 0.48rem;
-  }
-
-  .desktop-nav-tab--settings {
-    margin-top: auto;
-    margin-bottom: 6px;
-    cursor: default;
-  }
-
-  .desktop-nav-tab--settings:disabled {
-    opacity: 1;
   }
 
   /* ── Desktop left panel: floating fixed container (location bar + settings) ── */
@@ -850,6 +839,7 @@
 
   .desktop-footer {
     display: flex;
+    flex-wrap: wrap;
     position: fixed;
     left: 0;
     right: 0;
@@ -876,6 +866,13 @@
     margin: 0;
   }
 
+  .desktop-footer .made-note {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    white-space: normal;
+  }
+
   .desktop-footer-left,
   .desktop-footer-middle,
   .desktop-footer-right {
@@ -886,17 +883,17 @@
 
   .desktop-footer-left {
     justify-content: flex-start;
-    flex: 1 1 0;
+    flex: 0 1 auto;
   }
 
   .desktop-footer-middle {
     justify-content: center;
-    flex: 0 0 auto;
+    flex: 1 1 auto;
   }
 
   .desktop-footer-right {
     justify-content: flex-end;
-    flex: 1 1 0;
+    flex: 0 0 auto;
     gap: 8px;
     position: relative;
   }
@@ -1296,35 +1293,104 @@
     display: block;
   }
 
-  /* ── Decorative settings icon (bottom-left, no functionality) ── */
 
-  .desktop-settings-deco {
-    display: flex;
-    position: fixed;
-    bottom: 18px;
-    left: 18px;
-    z-index: 20;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid rgba(146, 176, 200, 0.14);
-    border-radius: 10px;
-    background: rgba(9, 16, 24, 0.72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .desktop-settings-deco-icon {
-    width: 16px;
-    height: 16px;
-    color: rgba(156, 195, 218, 0.3);
-  }
 }
 
 /* Layout label hidden on mobile */
 .desktop-layout-label {
   display: none;
+}
+
+/*
+ * Compact desktop layout
+ *
+ * Fixed-width overlays that feel balanced on a 4K / wide desktop consume too
+ * much of a Full HD workspace. Keep the type and controls at their normal
+ * readable size, but reduce the surrounding chrome and give the poster a
+ * little more of the available height.
+ */
+@media (min-width: 769px) and (max-width: 2100px) and (hover: hover) and (pointer: fine) {
+  .app-shell {
+    grid-template-columns: 54px 1fr;
+    grid-template-rows: 56px 1fr;
+  }
+
+  .general-header {
+    padding-inline: 16px;
+  }
+
+  .desktop-nav-bar {
+    padding-top: 6px;
+  }
+
+  .desktop-nav-tab {
+    width: 46px;
+    height: 48px;
+  }
+
+  .desktop-left-panel {
+    top: 108px;
+    left: 70px;
+    width: 300px;
+    max-height: calc(100vh - 160px);
+  }
+
+  .desktop-location-row-wrap {
+    top: 66px;
+    left: 70px;
+    width: 380px;
+  }
+
+  .desktop-settings-slide {
+    max-height: calc(100vh - 160px);
+  }
+
+  .app-shell > .preview-panel {
+    --poster-frame-margin-top: -30px;
+    --poster-frame-margin-bottom: 18px;
+  }
+
+  .app-shell > .preview-panel .poster-frame {
+    max-height: calc(84vh - 44px);
+    width: min(
+      calc(100% - 40px),
+      calc((84vh - 44px) * var(--poster-aspect, 0.6666667))
+    );
+  }
+
+  .app-shell > .preview-panel .poster-frame .map-controls {
+    transform: translate(-50%, 112%);
+  }
+
+  .app-shell > .preview-panel .settings-info-card {
+    top: 10px;
+    right: 10px;
+    width: 272px;
+  }
+
+  .desktop-footer {
+    padding: 7px 14px 7px 70px;
+  }
+
+  .desktop-export-fab {
+    right: 14px;
+  }
+}
+
+/* On narrower laptops the summary is secondary and would compete with the
+   poster and editor panel. Its information remains available in the controls. */
+@media (min-width: 769px) and (max-width: 1500px) and (hover: hover) and (pointer: fine) {
+  .desktop-left-panel {
+    left: 66px;
+    width: 292px;
+  }
+
+  .desktop-location-row-wrap {
+    left: 66px;
+    width: 350px;
+  }
+
+  .app-shell > .preview-panel .settings-info-card {
+    display: none;
+  }
 }
